@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "kapsarc_data_scraper"
+version = "0.1.0"
+description = "data scrapper and processing for KAPSARC data"
+authors = ["omar charif <charif.omar83@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+bs4 = "^0.0.1"
+requests = "^2.28.2"
+selenium = "^4.8.0"
+pandas = "^1.5.3"
+
+[tool.poetry.dev-dependencies]
+black = "^22.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
