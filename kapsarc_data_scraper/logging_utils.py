@@ -13,7 +13,7 @@ def logger_configuration():
         "class": "logging.StreamHandler",
         "level": "DEBUG",
         "formatter": "simple",
-        "stream": "ext://sys.stdout"
+        "stream": "ext://sys.stdout",
     }
 
     config_dict = {
@@ -21,13 +21,13 @@ def logger_configuration():
         "disable_existing_loggers": False,
         "formatters": {"simple": simple_formatter},
         "handlers": {"console": console_handler},
-        "root": {"level": "INFO", "handlers": ["console"]}
+        "root": {"level": "INFO", "handlers": ["console"]},
     }
 
     return config_dict
 
 
-def get_logger(name: str="") -> logging.Logger:
+def get_logger(name: str = "") -> logging.Logger:
     """
     initiate a logging object
     :param name: name of the logger to use to filter logs

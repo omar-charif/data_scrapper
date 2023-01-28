@@ -15,7 +15,7 @@ WRONG_SELECT_MENU_VALUE_ID = "wrong select menu value id"
 
 
 def read_updated_webpage_content(
-        url: str, select_menu_id: str, select_menu_value_id: str
+    url: str, select_menu_id: str, select_menu_value_id: str
 ) -> str:
     """
     changes option in selection menu and returns the updated webpage content
@@ -43,7 +43,9 @@ def read_updated_webpage_content(
 
     try:
         WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, f"//li[@id='{select_menu_value_id}']"))
+            EC.element_to_be_clickable(
+                (By.XPATH, f"//li[@id='{select_menu_value_id}']")
+            )
         ).click()
         logger.info("Update balance in webpage!")
     except TimeoutException:
