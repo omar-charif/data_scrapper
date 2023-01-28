@@ -5,12 +5,16 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import time
 
+from logging_utils import get_logger
 
-def change_selection_menu_option(
+logger = get_logger("UpdateWebpageSelection")
+
+
+def read_updated_webpage_content(
     url: str, select_menu_id: str, select_menu_value_id: str
 ) -> str:
     """
-    changes option in selection menu
+    changes option in selection menu and returns the updated webpage content
     :param select_menu_id: id of the select menu to change
     :param select_menu_value_id: id of the value to  switch to
     :return: content of the webpage after the change
@@ -18,6 +22,7 @@ def change_selection_menu_option(
     # initiate driver and load webpage
     driver = webdriver.Firefox()
     driver.get(url=url)
+    logger.info("Loaded webpage!")
 
     # change Balance to Exports
     WebDriverWait(driver, 20).until(
@@ -26,10 +31,12 @@ def change_selection_menu_option(
     WebDriverWait(driver, 20).until(
         EC.element_to_be_clickable((By.XPATH, f"//li[@id='{select_menu_value_id}']"))
     ).click()
+    logger.info("Update balance in webpage!")
 
     # sleep for three seconds to allow page to load data
     time.sleep(3)
     content = driver.page_source
+    logger.info("Done reading updated webpage content!")
 
     return content
 
@@ -39,7 +46,7 @@ if __name__ == "__main__":
     url = "http://www.jodidb.org/TableViewer/tableView.aspx?ReportId=93906"
     select_menu_id = "selectMenu2"
     select_menu_value_id = "li-el-d2-mi3"
-    content = change_selection_menu_option(
+    content = read_updated_webpage_content(
         url=url,
         select_menu_id=select_menu_id,
         select_menu_value_id=select_menu_value_id,
