@@ -4,6 +4,11 @@ version = "0.1.0"
 description = "data scrapper and processing for KAPSARC data"
 authors = ["omar charif <charif.omar83@gmail.com>"]
 
+[tool.taskipy.tasks]
+format = "black ."
+lint = "task format --check && flakehell lint kapsarc_data_scraper tests"
+clean = "rm -rf dist/"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 bs4 = "^0.0.1"
@@ -16,6 +21,8 @@ black = "^22.12.0"
 flakehell = "^0.9.0"
 taskipy = "^1.10.3"
 pylint = "^2.15.10"
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
 
 [tool.flakehell]
 format = "grouped"
