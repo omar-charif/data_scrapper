@@ -7,6 +7,7 @@ authors = ["omar charif <charif.omar83@gmail.com>"]
 [tool.taskipy.tasks]
 format = "black ."
 lint = "task format --check && flakehell lint kapsarc_data_scraper tests"
+test = "pytest --cov=kapsarc_data_scraper"
 clean = "rm -rf dist/"
 
 [tool.poetry.dependencies]
