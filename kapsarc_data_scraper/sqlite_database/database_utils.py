@@ -31,16 +31,13 @@ def get_filters_str(filters_dict: Dict[str, str]) -> str:
 
 class DataBase:
     def __init__(self, database_name: str):
+        self.database_name = database_name
         self.connection = sqlite3.connect(database=database_name)
         self.cursor = self.connection.cursor()
 
-    def connect_database(self, database_name):
-        """
-        connects to database
-        :param database_name: name of the database
-        :return:
-        """
-        self.connection = sqlite3.connect(database=database_name)
+    def connect_database(self):
+        # reopen connection to database
+        self.connection = sqlite3.connect(database=self.database_name)
 
     def close_connetion(self):
         self.connection.close()
@@ -48,11 +45,10 @@ class DataBase:
     def table_exist(self, table_name: str) -> bool:
         """
         checks if a table exists in the specified database
-        :param database_name: name of the database
         :param table_name: name of the table to check existence
         :return: True if exists and False if not
         """
-        logger.info(f"checking if {table_name} exists in {database_name}")
+        logger.info(f"checking if {table_name} exists in {self.database_name}")
 
         # Getting all tables from sqlite_master
         sql_query = """SELECT name FROM sqlite_master
@@ -153,10 +149,30 @@ class DataBase:
             self.connection.commit()
 
             logger.info(f"{table_name} created!")
-            return 0
+
         except RuntimeError:
             logger.error(f"Unable to create table: {table_name}")
             return 1
+
+        return 0
+
+    def drop_table(self, table_name: str) -> int:
+        """
+        drops a table if it exists
+        :param table_name: name of the table to drop
+        :return: 0 if drop successfull and 0 otherwise
+        """
+        if table_name == "":
+            logger.error("Missing table name. Please set the table name!")
+            return 1
+
+        if self.table_exist(table_name=table_name) is False:
+            logger.warning(f"Unable to drop {table_name}, it does not exists!")
+            return 0
+
+        self.cursor.execute(f"DROP TABLE {table_name}")
+
+        return 0
 
     def insert_df_table(
         self, table_name: str = "", data_df: pd.DataFrame = None
@@ -194,7 +210,9 @@ class DataBase:
                     row.values.tolist(),
                 )
             except sqlite3.IntegrityError:
-                logger.error("Unable to insert row. Primary key already exists in data!")
+                logger.error(
+                    "Unable to insert row. Primary key already exists in data!"
+                )
 
         self.connection.commit()
         logger.info("Done loading data into database!")

@@ -9,6 +9,8 @@ logger = get_logger("DataScapper")
 
 # set constant variable
 WEBPAGE_URL = "http://www.jodidb.org/TableViewer/tableView.aspx?ReportId=93906"
+SELECT_MENU_ID = "selectMenu2"
+SELECT_MENU_VALUE_ID = "li-el-d2-mi3"
 COUNTRY_COLUMN_NAME = "country"
 MONTH_YEAR_COLUMN_NAME = "month_year"
 VALUE_COLUMN_NAME = "value"
@@ -148,4 +150,4 @@ if __name__ == "__main__":
     )
 
     transformed_data = transform_wide_to_long(data_df=data_df)
-    transformed_data.to_parquet("data.parquet")
+
