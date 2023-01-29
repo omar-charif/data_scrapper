@@ -183,6 +183,7 @@ class DataBase:
         :param data_df: data pandas dataframe
         :return: number if added rows
         """
+        # performing checks of input data
         if table_name == "":
             logger.error("Missing table name. Please set the table name!")
             return -1
@@ -194,6 +195,7 @@ class DataBase:
             logger.error("Empty dataframe!")
             return -1
 
+        # check the compatibility of the pandas dataframe
         number_of_columns = self.get_number_of_column(table_name=table_name)
         if number_of_columns != data_df.shape[1]:
             logger.error(
@@ -201,6 +203,7 @@ class DataBase:
             )
             return -1
 
+        # ietrate over query reponse and load data into table
         str_value_querying = f"({', '.join(['?'] * number_of_columns)})"
         # insert data in table one by one
         for _, row in data_df.iterrows():

@@ -1,6 +1,8 @@
 # This is a sample Python script.
 
 import sys
+from typing import Dict, List
+
 from kapsarc_data_scraper.update_web import read_updated_webpage_content
 from kapsarc_data_scraper.data_scrapper import (
     scrape_data_from_content,
@@ -62,14 +64,30 @@ def refresh_data() -> int:
         return 1
 
 
-def retrieve_all_data():
+def retrieve_all_data() -> List[Dict[str, str]]:
     # retrieve all data from exports table
     data_base = DataBase(database_name=DATABASE_NAME)
     data = data_base.retrieve_data(table_name=TABLE_NAME)
 
     return data
 
-def retrieve_filtered_data(filter_dict: )
+
+def retrieve_filtered_data(
+    extract_column_list: List[str] = None,
+    filters_dict: Dict[str, str] = None,
+) -> List[Dict[str, str]]:
+    """
+    retrieve data with specific columns and filters
+    :param extract_column_list: list of column to retrieves
+    :param filters_dict: conditions for data retrieval
+    :return:
+    """
+    data_base = DataBase(database_name=DATABASE_NAME)
+    data_base.retrieve_data(
+        table_name=TABLE_NAME,
+        extract_column_list=extract_column_list,
+        filters_dict=filters_dict,
+    )
 
 
 # Press the green button in the gutter to run the script.
