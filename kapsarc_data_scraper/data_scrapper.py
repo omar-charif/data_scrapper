@@ -121,7 +121,7 @@ def transform_wide_to_long(data_df: pd.DataFrame) -> pd.DataFrame:
 
     transformed_data_df.reset_index(inplace=True)
     transformed_data_df.rename(
-        columns={"level1": MONTH_YEAR_COLUMN_NAME, 0: VALUE_COLUMN_NAME}
+        columns={"level1": MONTH_YEAR_COLUMN_NAME, 0: VALUE_COLUMN_NAME}, inplace=True
     )
     logger.info("Done transforming!")
 
@@ -146,3 +146,5 @@ if __name__ == "__main__":
         data_table_id=DATA_TABLE_ID,
         column_header_class=COLUMN_HEADER_CLASS,
     )
+
+    transformed_data = transform_wide_to_long(data_df=data_df)
