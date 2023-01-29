@@ -1,12 +1,17 @@
-FROM python:3.8-slim-buster
+FROM selenium/standalone-firefox
 
 ENV PYTHONUNBUFFERED=1 \
     GUNICORN_WORKERS=2
 
+RUN sudo apt-get update
+RUN sudo apt install --assume-yes python3-pip
+RUN sudo apt install python-is-python3
+RUN sudo apt install --assume-yes gunicorn
+
 
 COPY ./requirements.txt ./
 
-RUN pip install -r ./requirements.txt
+RUN pip3 install -r ./requirements.txt
 
 COPY ./kapsarc_data_scraper ./kapsarc_data_scraper \
      ./app.py ./ \

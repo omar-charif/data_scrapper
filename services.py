@@ -9,7 +9,6 @@ class Version(object):
     logger = get_logger("Version")
 
     def on_get(self, request, response):
-        num_rows = refresh_data()
         response_json = {"version": "0.1.0", "stage": "beta"}
 
         self.logger.info(f"response_json: {response_json}")

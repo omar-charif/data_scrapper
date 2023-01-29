@@ -68,7 +68,7 @@ def retrieve_all_data() -> List[Dict[str, str]]:
     # retrieve all data from exports table
     data_base = DataBase(database_name=DATABASE_NAME)
     data = data_base.retrieve_data(table_name=TABLE_NAME)
-
+    data_base.close_connetion()
     return data
 
 
@@ -83,13 +83,16 @@ def retrieve_filtered_data(
     :return:
     """
     data_base = DataBase(database_name=DATABASE_NAME)
-    data_base.retrieve_data(
+    data = data_base.retrieve_data(
         table_name=TABLE_NAME,
         extract_column_list=extract_column_list,
         filters_dict=filters_dict,
     )
+    data_base.close_connetion()
+    return data
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
-    sys.exit(refresh_data())
+    data = retrieve_all_data()
+    sys.exit(len(data))
