@@ -10,7 +10,7 @@ logger = get_logger("DataScapper")
 # set constant variable
 WEBPAGE_URL = "http://www.jodidb.org/TableViewer/tableView.aspx?ReportId=93906"
 COUNTRY_COLUMN_NAME = "country"
-MONTH_YEAR_COLUMN_NAME = "month-year"
+MONTH_YEAR_COLUMN_NAME = "month_year"
 VALUE_COLUMN_NAME = "value"
 
 
@@ -121,7 +121,7 @@ def transform_wide_to_long(data_df: pd.DataFrame) -> pd.DataFrame:
 
     transformed_data_df.reset_index(inplace=True)
     transformed_data_df.rename(
-        columns={"level1": MONTH_YEAR_COLUMN_NAME, 0: VALUE_COLUMN_NAME}, inplace=True
+        columns={"level_1": MONTH_YEAR_COLUMN_NAME, 0: VALUE_COLUMN_NAME}, inplace=True
     )
     logger.info("Done transforming!")
 
@@ -148,3 +148,4 @@ if __name__ == "__main__":
     )
 
     transformed_data = transform_wide_to_long(data_df=data_df)
+    transformed_data.to_parquet("data.parquet")

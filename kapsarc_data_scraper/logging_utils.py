@@ -5,7 +5,7 @@ import logging.config
 def logger_configuration():
     # default logging configuration
     simple_formatter = {
-        "format": "%(asctime)s|%(filename)25s:%(lineno)3s %(funcName)30s()| %(message)s",
+        "format": "%(asctime)s|%(levelname)7s|%(filename)25s:%(lineno)3s %(funcName)30s()| %(message)s",
         "datefmt": "%y-%m-%d %H:%M:%S",
     }
 
