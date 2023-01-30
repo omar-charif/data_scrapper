@@ -16,6 +16,9 @@ def get_filters_str(filters_dict: Dict[str, str]) -> str:
     :param filters_dict: list of filters to apply when querying the data
     :return: filter string to be used in the where clause
     """
+    if len(filters_dict) == 0:
+        return ""
+
     filter_str = ""
     num_filters = filters_dict.__len__()
     count = 0

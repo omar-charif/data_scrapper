@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kapsarc_data_scraper"
-version = "0.1.0"
+version = "0.2.0"
 description = "data scrapper and processing for KAPSARC data"
 authors = ["omar charif <charif.omar83@gmail.com>"]
 
