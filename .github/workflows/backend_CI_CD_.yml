@@ -25,12 +25,34 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Install poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Activate poetry environment
+        run: source $(poetry env info --path)/bin/activate
+
+      - name: Run linting
+        run: poetry run task lint
+
+      - name: Run test
+        run: poetry run task test
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Build the hello-docker Docker image
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          docker build . --tag ghcr.io/omarcharif/data-scrapper:latest
+          docker push ghcr.io/omarcharif/data-scrapper:latest
