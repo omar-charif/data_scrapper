@@ -3,10 +3,10 @@ FROM selenium/standalone-firefox
 ENV PYTHONUNBUFFERED=1 \
     GUNICORN_WORKERS=2
 
-RUN sudo apt-get update
-RUN sudo apt install --assume-yes python3-pip
-RUN sudo apt install python-is-python3
-RUN sudo apt install --assume-yes gunicorn
+RUN sudo apt-get update &&\
+    sudo apt install --assume-yes python3-pip &&\
+    sudo apt install python-is-python3 &&\
+    sudo apt install --assume-yes gunicorn
 
 
 COPY ./requirements.txt ./

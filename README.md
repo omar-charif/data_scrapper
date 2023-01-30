@@ -12,4 +12,4 @@ it is then converted to a restful API.
 
 REST API has two endpoints:
 - version: serve as healthcheck and return the version of backend app. It can be reached at: http://127.0.0.1:5050/version
-- retrieve-data: retrieve data from data base. It can be reached at: http://127.0.0.1:5050//retrieve-data
+- retrieve-data: retrieve data from data base. It can be reached at: http://127.0.0.1:5050/retrieve-data
