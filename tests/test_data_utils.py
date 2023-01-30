@@ -1,5 +1,6 @@
 from kapsarc_data_scraper.sqlite_database import database_utils as dbu
 
+
 def test_get_filters_str():
     # Test with an empty filters dictionary
     filters_dict = {}
