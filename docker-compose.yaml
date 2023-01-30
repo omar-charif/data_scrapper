@@ -1,0 +1,8 @@
+version: "3"
+services:
+  backend:
+    image: data-scraper
+    build:
+      context: ./
+    ports:
+    - "5050:5050"
